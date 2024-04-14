@@ -10,7 +10,9 @@ interface AppState {
     isLoading: boolean;
     fetchMeetingRecords: (domain: string, page: number, perPage: number) => Promise<void>;
     createMeeting: (domain: string, firstName: string, entity: string, entityId: number) => Promise<void>;
+    setCurrentPage: (page: number) => void;
 }
+
 
 export const useStore = create<AppState>((set) => ({
     modalIsOpen: false,
@@ -19,6 +21,7 @@ export const useStore = create<AppState>((set) => ({
     currentPage: 1,
     totalPages: 1,
     isLoading: false,
+    setCurrentPage: (page: number) => set({ currentPage: page }),
     fetchMeetingRecords: async (domain, page, perPage) => {
         set({ isLoading: true });
         try {

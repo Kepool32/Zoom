@@ -7,7 +7,8 @@ import styles from "./MettingList.module.scss";
 
 const MeetingList: React.FC = () => {
     const { meetingRecords, isLoading, fetchMeetingRecords, currentPage, totalPages, setCurrentPage } = useStore();
-    const domain = window?.AMOCRM?.widgets?.system.domain || "testdomain";
+    const domain = (window as any)?.AMOCRM?.widgets?.system?.domain || "testdomain";
+
     const perPage = 3;
 
     useEffect(() => {

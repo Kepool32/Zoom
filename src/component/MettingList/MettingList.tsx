@@ -9,7 +9,7 @@ const MeetingList: React.FC = () => {
     const { meetingRecords, isLoading, fetchMeetingRecords, currentPage, totalPages, setCurrentPage } = useStore();
     const domain = (window as any)?.AMOCRM?.widgets?.system?.domain || "testdomain";
 
-    const perPage = 3;
+    const perPage = 2;
 
     useEffect(() => {
         fetchMeetingRecords(domain, currentPage, perPage);
@@ -40,7 +40,7 @@ const MeetingList: React.FC = () => {
                                         <div>{formatDateString(record.created_at)}</div>
                                         <div className={styles["record-links"]}>
                                             {record.records.map((meeting: any, index: number) => (
-                                                <a key={index} href={meeting.record_link} target="_blank" rel="noopener noreferrer">{meeting.record_link}</a>
+                                                <a key={index} href={meeting.record_link}>Сыллка на скачивание</a>
                                             ))}
                                         </div>
                                     </div>

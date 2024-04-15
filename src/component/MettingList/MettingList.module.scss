@@ -1,7 +1,7 @@
 
 
 .record-content-item {
-  min-height: 200px; /* Минимальная высота для избежания скачков элементов при загрузке */
+  min-height: 200px;
 }
 
 .meeting-list {
@@ -10,8 +10,8 @@
 }
 
 .meeting-item {
-  border: 1px solid #C5C5C5; /* Бордер для каждого элемента встречи */
-  margin-bottom: 10px; /* Отступ между элементами встречи */
+  border: 1px solid #C5C5C5;
+  margin-bottom: 10px;
 }
 
 .record-item {
@@ -26,4 +26,18 @@
   display: flex;
   flex-direction: column;
   gap:10px;
+}
+// MeetingList.module.scss
+
+.request-transcript-button {
+  background-color: #007bff; // Цвет фона кнопки
+  color: #fff; // Цвет текста кнопки
+  border: none; // Убираем границу
+  padding: 8px 16px; // Отступы внутри кнопки
+  cursor: pointer; // Курсор при наведении
+}
+
+.request-transcript-button:disabled {
+  background-color: #ccc; // Цвет фона кнопки, когда она заблокирована
+  cursor: not-allowed; // Курсор при наведении, когда кнопка заблокирована
 }

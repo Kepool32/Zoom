@@ -1,5 +1,5 @@
 import create from 'zustand';
-import { fetchMeetingRecords, createMeeting } from '../services/api';
+import { fetchMeetingRecords, createMeeting, fetchTranscript } from '../services/api';
 
 interface AppState {
     modalIsOpen: boolean;
@@ -11,6 +11,7 @@ interface AppState {
     fetchMeetingRecords: (domain: string, page: number, perPage: number) => Promise<void>;
     createMeeting: (domain: string, firstName: string, entity: string, entityId: number) => Promise<void>;
     setCurrentPage: (page: number) => void;
+    fetchTranscript: (domain: string, recordId: number) => Promise<void>; // Добавляем новый метод
 }
 
 
@@ -41,4 +42,14 @@ export const useStore = create<AppState>((set) => ({
             console.error('Error creating meeting:', error);
         }
     },
+    fetchTranscript: async (domain, recordId) => {
+        try {
+
+            await fetchTranscript(domain, recordId);
+
+        } catch (error) {
+            console.error('Error fetching transcript:', error);
+
+        }
+    }
 }));

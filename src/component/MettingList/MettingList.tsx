@@ -4,11 +4,9 @@ import Loader from "../Loader/Loader";
 import Pagination from "../pagination/Pagination";
 import styles from "./MettingList.module.scss";
 
-
 const MeetingList: React.FC = () => {
-    const { meetingRecords, isLoading, fetchMeetingRecords, currentPage, totalPages, setCurrentPage } = useStore();
+    const { meetingRecords, isLoading, fetchMeetingRecords, fetchTranscript, currentPage, totalPages, setCurrentPage } = useStore();
     const domain = (window as any)?.AMOCRM?.widgets?.system?.domain || "testdomain";
-
     const perPage = 2;
 
     useEffect(() => {
@@ -26,6 +24,16 @@ const MeetingList: React.FC = () => {
         setCurrentPage(page);
     };
 
+    const handleTranscriptRequest = async (recordId: number) => {
+        try {
+            await fetchTranscript(domain, recordId);
+
+        } catch (error) {
+            console.error('Error fetching transcript:', error);
+
+        }
+    };
+    console.log(meetingRecords)
     return (
         <>
             {isLoading ? (
@@ -40,7 +48,23 @@ const MeetingList: React.FC = () => {
                                         <div>{formatDateString(record.created_at)}</div>
                                         <div className={styles["record-links"]}>
                                             {record.records.map((meeting: any, index: number) => (
-                                                <a key={index} href={meeting.record_link}>Сыллка на скачивание</a>
+                                                <div key={index}>
+                                                    <a href={meeting.record_link}>Ссылка на скачивание</a>
+                                                    {meeting.transcript_status === 0 ? (
+                                                        <button
+                                                            className={styles["request-transcript-button"]}
+                                                            onClick={() => handleTranscriptRequest(meeting.id)}
+                                                            disabled={meeting.transcript_status === 1}
+                                                        >
+                                                            Запросить транскрипцию
+                                                        </button>
+                                                    ) : (
+                                                        <span>Запрос отправлен</span>
+                                                    )}
+                                                    {meeting.transcript_link && (
+                                                        <a href={meeting.transcript_link}>Ссылка на скачивание транскрипции</a>
+                                                    )}
+                                                </div>
                                             ))}
                                         </div>
                                     </div>

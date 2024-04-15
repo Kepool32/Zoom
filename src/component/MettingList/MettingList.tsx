@@ -20,16 +20,15 @@ const MeetingList: React.FC = () => {
         return formattedDate;
     };
 
-    const [requestedTranscriptIds, setRequestedTranscriptIds] = useState<number[]>([]);
-
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
     };
 
     const handleTranscriptRequest = async (recordId: number) => {
         try {
+
             await fetchTranscript(domain, recordId);
-            setRequestedTranscriptIds(prevState => [...prevState, recordId]);
+
         } catch (error) {
             console.error('Error fetching transcript:', error);
         }

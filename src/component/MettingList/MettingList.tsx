@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useStore } from "../store/index";
 import Loader from "../Loader/Loader";
 import Pagination from "../pagination/Pagination";
@@ -6,12 +6,26 @@ import styles from "./MettingList.module.scss";
 
 const MeetingList: React.FC = () => {
     const { meetingRecords, isLoading, fetchMeetingRecords, fetchTranscript, currentPage, totalPages, setCurrentPage } = useStore();
+    const [requestedTranscriptIds, setRequestedTranscriptIds] = useState<number[]>([]);
     const domain = (window as any)?.AMOCRM?.widgets?.system?.domain || "testdomain";
     const perPage = 2;
 
     useEffect(() => {
         fetchMeetingRecords(domain, currentPage, perPage);
     }, [fetchMeetingRecords, domain, currentPage, perPage]);
+
+    useEffect(() => {
+        // Обновляем состояние requestedTranscriptIds при каждом обновлении meetingRecords
+        const newRequestedTranscriptIds: number[] = [];
+        meetingRecords.forEach((record: any) => {
+            record.records.forEach((meeting: any) => {
+                if (meeting.transcript_requested === 1) {
+                    newRequestedTranscriptIds.push(meeting.id);
+                }
+            });
+        });
+        setRequestedTranscriptIds(newRequestedTranscriptIds);
+    }, [meetingRecords]);
 
     const formatDateString = (dateString: string) => {
         const date = new Date(dateString);
@@ -24,13 +38,13 @@ const MeetingList: React.FC = () => {
         setCurrentPage(page);
     };
 
-    const handleTranscriptRequest = async (recordId: number) => {
+    const handleTranscriptRequest = async (meetingId: number) => {
         try {
-
-            await fetchTranscript(domain, recordId);
-
+            setRequestedTranscriptIds(prevState => [...prevState, meetingId]);
+            await fetchTranscript(domain, meetingId);
         } catch (error) {
             console.error('Error fetching transcript:', error);
+            setRequestedTranscriptIds(prevState => prevState.filter(id => id !== meetingId));
         }
     };
 
@@ -55,11 +69,11 @@ const MeetingList: React.FC = () => {
                                                     {meeting.transcript_status === 0 && (
                                                         <div>
                                                             <button
-                                                                className={`${styles["request-transcript-button"]} ${meeting.transcript_requested === 1 ? styles["disabled"] : ""}`}
+                                                                className={`${styles["request-transcript-button"]} ${requestedTranscriptIds.includes(meeting.id) ? styles["disabled"] : ""}`}
                                                                 onClick={() => handleTranscriptRequest(meeting.id)}
-                                                                disabled={meeting.transcript_requested === 1}
+                                                                disabled={requestedTranscriptIds.includes(meeting.id) || meeting.transcript_requested === 1}
                                                             >
-                                                                {meeting.transcript_requested === 1 ? "Запрос отправлен" : "Запросить транскрипцию"}
+                                                                {requestedTranscriptIds.includes(meeting.id) ? "Запрос отправлен" : "Запросить транскрипцию"}
                                                             </button>
                                                         </div>
                                                     )}

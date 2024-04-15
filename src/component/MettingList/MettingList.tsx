@@ -51,13 +51,15 @@ const MeetingList: React.FC = () => {
                                             {record.records.map((meeting: any, index: number) => (
                                                 <div key={index}>
                                                     <a href={meeting.record_link}>Ссылка на скачивание</a>
-                                                    <button
-                                                        className={`${styles["request-transcript-button"]} ${requestedTranscriptIds.includes(meeting.id) ? styles["disabled"] : ""}`}
-                                                        onClick={() => handleTranscriptRequest(meeting.id)}
-                                                        disabled={requestedTranscriptIds.includes(meeting.id)}
-                                                    >
-                                                        {requestedTranscriptIds.includes(meeting.id) ? "Запрос отправлен" : "Запросить транскрипцию"}
-                                                    </button>
+                                                    {meeting.transcript_status === 0 && (
+                                                        <button
+                                                            className={`${styles["request-transcript-button"]} ${requestedTranscriptIds.includes(meeting.id) ? styles["disabled"] : ""}`}
+                                                            onClick={() => handleTranscriptRequest(meeting.id)}
+                                                            disabled={requestedTranscriptIds.includes(meeting.id)}
+                                                        >
+                                                            {requestedTranscriptIds.includes(meeting.id) ? "Запрос отправлен" : "Запросить транскрипцию"}
+                                                        </button>
+                                                    )}
                                                     {meeting.transcript_link && (
                                                         <a href={meeting.transcript_link} className={styles["transcript-download-link"]}>Ссылка на скачивание транскрипции</a>
                                                     )}

@@ -33,7 +33,7 @@ const MeetingList: React.FC = () => {
 
         }
     };
-    console.log(meetingRecords)
+
     return (
         <>
             {isLoading ? (

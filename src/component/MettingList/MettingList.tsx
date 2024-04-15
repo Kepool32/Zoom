@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useStore } from "../store/index";
 import Loader from "../Loader/Loader";
 import Pagination from "../pagination/Pagination";

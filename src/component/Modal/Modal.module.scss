@@ -1,45 +1,47 @@
-.record-content-item {
-    min-height: 200px;
-}
-
-.meeting-list {
-    list-style: none;
-    padding: 0;
-}
-
-.meeting-item {
-    border: 1px solid #C5C5C5;
-    margin-bottom: 10px;
-}
-
-.record-item {
-    min-height: 50px;
-    padding: 15px 0;
-    gap: 20px;
-    border: 1px 0 0 0;
-    opacity: 1;
-}
-
-.record-links {
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
-    flex-direction: column;
-    gap:10px;
+    justify-content: center;
+    align-items: center;
 }
-
-.request-transcript-button {
-    background-color: rgba(255, 168, 168, 0.4);
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    cursor: pointer;
-}
-
-.request-transcript-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-
-.transcript-download-link {
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 100%;
     text-align: center;
-    margin-top: 10px;
+}
+
+
+.create-meeting-button {
+    background-color: #97ce9a;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.create-meeting-button:hover {
+    background-color: #45a049;
+}
+
+.meeting-title {
+    display: block;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin: 20px;
 }

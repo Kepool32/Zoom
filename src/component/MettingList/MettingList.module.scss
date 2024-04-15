@@ -27,17 +27,23 @@
   flex-direction: column;
   gap:10px;
 }
-// MeetingList.module.scss
+.record-links-item {
+  margin-bottom: 10px;
+}
+
+.transcript-download-link {
+  margin-left: 20px;
+}
 
 .request-transcript-button {
-  background-color: #007bff; // Цвет фона кнопки
-  color: #fff; // Цвет текста кнопки
-  border: none; // Убираем границу
-  padding: 8px 16px; // Отступы внутри кнопки
-  cursor: pointer; // Курсор при наведении
+  background-color: #a1ceff;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
 }
 
 .request-transcript-button:disabled {
-  background-color: #ccc; // Цвет фона кнопки, когда она заблокирована
-  cursor: not-allowed; // Курсор при наведении, когда кнопка заблокирована
+  background-color: #ccc;
+  cursor: not-allowed;
 }

@@ -49,19 +49,25 @@ const MeetingList: React.FC = () => {
                                         <div>{formatDateString(record.created_at)}</div>
                                         <div className={styles["record-links"]}>
                                             {record.records.map((meeting: any, index: number) => (
-                                                <div key={index}>
-                                                    <a href={meeting.record_link}>Ссылка на скачивание</a>
+                                                <div key={index} className={styles["record-links-item"]}>
+                                                    <div>
+                                                        <a href={meeting.record_link}>Ссылка на скачивание</a>
+                                                    </div>
                                                     {meeting.transcript_status === 0 && (
-                                                        <button
-                                                            className={`${styles["request-transcript-button"]} ${requestedTranscriptIds.includes(meeting.id) ? styles["disabled"] : ""}`}
-                                                            onClick={() => handleTranscriptRequest(meeting.id)}
-                                                            disabled={requestedTranscriptIds.includes(meeting.id)}
-                                                        >
-                                                            {requestedTranscriptIds.includes(meeting.id) ? "Запрос отправлен" : "Запросить транскрипцию"}
-                                                        </button>
+                                                        <div>
+                                                            <button
+                                                                className={`${styles["request-transcript-button"]} ${meeting.transcript_requested === 1 ? styles["disabled"] : ""}`}
+                                                                onClick={() => handleTranscriptRequest(meeting.id)}
+                                                                disabled={meeting.transcript_requested === 1}
+                                                            >
+                                                                {meeting.transcript_requested === 1 ? "Запрос отправлен" : "Запросить транскрипцию"}
+                                                            </button>
+                                                        </div>
                                                     )}
                                                     {meeting.transcript_link && (
-                                                        <a href={meeting.transcript_link} className={styles["transcript-download-link"]}>Ссылка на скачивание транскрипции</a>
+                                                        <div>
+                                                            <a href={meeting.transcript_link} className={styles["transcript-download-link"]}>Ссылка на скачивание транскрипции</a>
+                                                        </div>
                                                     )}
                                                 </div>
                                             ))}

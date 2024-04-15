@@ -23,7 +23,7 @@ export const createMeeting = async (domain: string, firstName: string, entity: s
 };
 export const fetchTranscript = async (domain: string, recordId: number) => {
     try {
-        const response = await axios.get(`${API_BASE_URL}/records/${recordId}/transcript`, { params: { domain } });
+        const response = await axios.post(`${API_BASE_URL}/records/${recordId}/transcript`, { params: { domain } });
         return response.data;
     } catch (error) {
         console.error('Error fetching transcript:', error);

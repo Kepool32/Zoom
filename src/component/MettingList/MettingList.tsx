@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useStore } from "../store/index";
 import Loader from "../Loader/Loader";
 import Pagination from "../pagination/Pagination";
@@ -20,6 +20,8 @@ const MeetingList: React.FC = () => {
         return formattedDate;
     };
 
+    const [requestedTranscriptIds, setRequestedTranscriptIds] = useState<number[]>([]);
+
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
     };
@@ -27,10 +29,9 @@ const MeetingList: React.FC = () => {
     const handleTranscriptRequest = async (recordId: number) => {
         try {
             await fetchTranscript(domain, recordId);
-
+            setRequestedTranscriptIds(prevState => [...prevState, recordId]);
         } catch (error) {
             console.error('Error fetching transcript:', error);
-
         }
     };
 
@@ -50,19 +51,15 @@ const MeetingList: React.FC = () => {
                                             {record.records.map((meeting: any, index: number) => (
                                                 <div key={index}>
                                                     <a href={meeting.record_link}>Ссылка на скачивание</a>
-                                                    {meeting.transcript_status === 0 ? (
-                                                        <button
-                                                            className={styles["request-transcript-button"]}
-                                                            onClick={() => handleTranscriptRequest(meeting.id)}
-                                                            disabled={meeting.transcript_status === 1}
-                                                        >
-                                                            Запросить транскрипцию
-                                                        </button>
-                                                    ) : (
-                                                        <span>Запрос отправлен</span>
-                                                    )}
+                                                    <button
+                                                        className={`${styles["request-transcript-button"]} ${requestedTranscriptIds.includes(meeting.id) ? styles["disabled"] : ""}`}
+                                                        onClick={() => handleTranscriptRequest(meeting.id)}
+                                                        disabled={requestedTranscriptIds.includes(meeting.id)}
+                                                    >
+                                                        {requestedTranscriptIds.includes(meeting.id) ? "Запрос отправлен" : "Запросить транскрипцию"}
+                                                    </button>
                                                     {meeting.transcript_link && (
-                                                        <a href={meeting.transcript_link}>Ссылка на скачивание транскрипции</a>
+                                                        <a href={meeting.transcript_link} className={styles["transcript-download-link"]}>Ссылка на скачивание транскрипции</a>
                                                     )}
                                                 </div>
                                             ))}

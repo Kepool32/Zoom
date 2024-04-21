@@ -12,7 +12,22 @@
     flex-direction: column;
     justify-content: center;
 }
+.modal-slm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px;
 
+}
+.modal-slm span{
+    color: white;
+
+}
+.modal-slm img{
+    width: 30px;
+    height: 20px;
+
+}
 .modal-content {
     text-align: center;
     flex-grow: 1;

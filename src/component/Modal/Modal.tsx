@@ -24,7 +24,11 @@ const Modal: React.FC<ModalProps> = ({ closeModal }) => {
     return (
         <div className={styles["modal-container"]}>
             <div className={styles["modal-logo"]}>
-                <img src={MySvgImage1} alt="" />
+                <div className={styles["modal-slm"]}>
+                    <img src={MySvgImage1} alt="" />
+                    <span>SlmZoom</span>
+                </div>
+
                 <img src={MySvgImage2} alt="" className={styles["close-icon"]} onClick={closeModal} />
             </div>
             <div className={styles["modal-content"]} onClick={(event) => event.stopPropagation()}>

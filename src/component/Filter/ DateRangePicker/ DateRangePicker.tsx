@@ -48,7 +48,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSelect }) => {
 
     const handleReadyClick = () => {
         setIsDatePickerOpen(false);
-        if (endDate && startDate) {
+        if (endDate || startDate) {
             onSelect && onSelect(startDate, endDate);
             fetchMeetingRecords(domain, currentPage, perPage,startDate, endDate);
         }

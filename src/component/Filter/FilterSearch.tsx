@@ -19,6 +19,7 @@ const FilterSearch: React.FC = () => {
 
     const handleFilterClick = () => {
         setShowModal(!showModal);
+        setShowDataPicker(!showDataPicker);
     };
 
     const handleDateRangeClick = () => {

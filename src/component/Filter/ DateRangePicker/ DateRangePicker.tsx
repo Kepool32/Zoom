@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 import ru from 'date-fns/locale/ru';
 import styles from './DateRangePicker.module.scss';
 import { useStore } from "../../store/index";
 
-const DateRangePicker = ({ onSelect }) => {
+const DateRangePicker: React.FC<{ onSelect: (startDate: Date | null, endDate: Date | null) => void }> = ({ onSelect }) => {
     const { fetchMeetingRecords, currentPage } = useStore();
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
+    const [startDate, setStartDate] = useState<Date | null>(null);
+    const [endDate, setEndDate] = useState<Date | null>(null);
     const [isSelectingRange, setIsSelectingRange] = useState(false);
     const domain = (window as any)?.AMOCRM?.widgets?.system?.domain || "edormash.amocrm.ru";
     const perPage = 2;

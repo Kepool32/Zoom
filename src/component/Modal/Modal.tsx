@@ -1,40 +1,40 @@
-import React, { useRef } from 'react';
-import { useStore } from "../store/index";
+import React from 'react';
 import styles from "./Modal.module.scss";
 import MeetingList from "../MettingList/MettingList";
-import {WindowWithAMOCRM} from "./interface/WindowWithAMOCRM";
+import { WindowWithAMOCRM } from "./interface/WindowWithAMOCRM";
+import FilterSearch from "../Filter/FilterSearch";
+import Logo from '../../assets/Logo.svg';
+import CloseIcon from '../../assets/CloseIcon.svg';
+import {useStore} from "../store/index";
 
+interface ModalProps {
+    closeModal: () => void;
+}
 
-const Modal: React.FC = () => {
-    const { modalIsOpen, setModalIsOpen, createMeeting } = useStore();
-    const modalRef = useRef<HTMLDivElement>(null); // Создаем ссылку на элемент модального окна
+const Modal: React.FC<ModalProps> = ({ closeModal }) => {
+    const { createMeeting } = useStore();
 
     const windowWithAMOCRM = window as WindowWithAMOCRM;
-    const domain = windowWithAMOCRM.AMOCRM?.widgets?.system?.domain || "testdomain";
+    const domain = windowWithAMOCRM.AMOCRM?.widgets?.system?.domain || "edormash.amocrm.ru";
     const id = windowWithAMOCRM.AMOCRM?.data?.current_card?.id || 0;
     const entity = windowWithAMOCRM.AMOCRM?.data?.current_entity || "Entity";
     const name = windowWithAMOCRM.AMOCRM?.data?.current_card?.user?.name || "Entity";
 
-
-
-    const handleOutsideClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-            setModalIsOpen(false);
-        }
-    };
-
     return (
-        <>
-            {modalIsOpen && (
-                <div className={styles["modal-overlay"]} onClick={handleOutsideClick}>
-                    <div ref={modalRef} className={styles["modal-content"]}>
-                        <button className={styles["create-meeting-button"]} onClick={() => createMeeting(domain, name, entity, id)}>Создать встречу</button>
-                        <span className={styles["meeting-title"]}>Список встреч</span>
-                        <MeetingList />
-                    </div>
+        <div className={styles["modal-container"]}>
+            <div className={styles["modal-logo"]}>
+                <img src={Logo} alt="Logo" />
+                <img src={CloseIcon} alt="Close" className={styles["close-icon"]} onClick={closeModal} />
+            </div>
+            <div className={styles["modal-content"]} onClick={(event) => event.stopPropagation()}>
+                <FilterSearch/>
+                <div className={styles["modal-button-content"]}>
+                    <button className={styles["create-meeting-button"]} onClick={() => createMeeting(domain, name, entity, id)}>Создать встречу в Zoom</button>
                 </div>
-            )}
-        </>
+                <span className={styles["meeting-title"]}>Список встреч</span>
+                <MeetingList />
+            </div>
+        </div>
     );
 };
 

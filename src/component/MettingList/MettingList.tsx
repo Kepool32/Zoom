@@ -3,29 +3,26 @@ import { useStore } from "../store/index";
 import Loader from "../Loader/Loader";
 import Pagination from "../pagination/Pagination";
 import styles from "./MettingList.module.scss";
+import MySvgImage from '../../assets/Frame 6.svg';
 
 const MeetingList: React.FC = () => {
-    const { meetingRecords, isLoading, fetchMeetingRecords, fetchTranscript, currentPage, totalPages, setCurrentPage } = useStore();
-    const [requestedTranscriptIds, setRequestedTranscriptIds] = useState<number[]>([]);
-    const domain = (window as any)?.AMOCRM?.widgets?.system?.domain || "testdomain";
+    const {
+        meetingRecords,
+        isLoading,
+        fetchMeetingRecords,
+        fetchTranscript,
+        currentPage,
+        totalPages,
+        setCurrentPage
+    } = useStore();
+    const [contextMenuId, setContextMenuId] = useState<number | null>(null);
+    const [isContextMenuVisible, setContextMenuVisible] = useState<boolean>(false);
+    const domain = (window as any)?.AMOCRM?.widgets?.system?.domain || "edormash.amocrm.ru";
     const perPage = 2;
 
     useEffect(() => {
         fetchMeetingRecords(domain, currentPage, perPage);
     }, [fetchMeetingRecords, domain, currentPage, perPage]);
-
-    useEffect(() => {
-        // Обновляем состояние requestedTranscriptIds при каждом обновлении meetingRecords
-        const newRequestedTranscriptIds: number[] = [];
-        meetingRecords.forEach((record: any) => {
-            record.records.forEach((meeting: any) => {
-                if (meeting.transcript_requested === 1) {
-                    newRequestedTranscriptIds.push(meeting.id);
-                }
-            });
-        });
-        setRequestedTranscriptIds(newRequestedTranscriptIds);
-    }, [meetingRecords]);
 
     const formatDateString = (dateString: string) => {
         const date = new Date(dateString);
@@ -40,11 +37,19 @@ const MeetingList: React.FC = () => {
 
     const handleTranscriptRequest = async (meetingId: number) => {
         try {
-            setRequestedTranscriptIds(prevState => [...prevState, meetingId]);
             await fetchTranscript(domain, meetingId);
         } catch (error) {
             console.error('Error fetching transcript:', error);
-            setRequestedTranscriptIds(prevState => prevState.filter(id => id !== meetingId));
+        }
+    };
+
+    const handleContextMenu = (e: React.MouseEvent, meetingId: number) => {
+        if (contextMenuId === meetingId) {
+            setContextMenuId(null);
+            setContextMenuVisible(false);
+        } else {
+            setContextMenuId(meetingId);
+            setContextMenuVisible(true);
         }
     };
 
@@ -59,31 +64,39 @@ const MeetingList: React.FC = () => {
                             {meetingRecords.map((record: any, index: number) => (
                                 <li key={index} className={styles["meeting-item"]}>
                                     <div className={styles["record-item"]}>
-                                        <div>{formatDateString(record.created_at)}</div>
+
                                         <div className={styles["record-links"]}>
-                                            {record.records.map((meeting: any, index: number) => (
-                                                <div key={index} className={styles["record-links-item"]}>
-                                                    <div>
-                                                        <a href={meeting.record_link}>Ссылка на скачивание</a>
+                                            <img src={MySvgImage} alt="" />
+                                            <div>
+                                                {record.records.map((meeting: any, index: number) => (
+
+                                                    <div key={index} className={styles["record-links-item"]}>
+                                                        <div className={styles["record-date-item"]}>{formatDateString(record.created_at)}</div>
+                                                        <div className={styles["download-link-container"]}>
+                                                            <div className={styles["download-links-container"]}>
+                                                                <a href={meeting.record_link}>Ссылка на скачивание</a>
+                                                                {meeting.transcript_status === 1 && (
+
+                                                                    <a href={meeting.transcript_link}>Ссылка на транскрипцию</a>
+
+                                                                )}
+                                                            </div>
+
+                                                            {!meeting.transcript_status && (
+                                                                <div className={styles["context-menu"]}>
+                                                                    <div className={styles["context-menu-icon"]} onClick={(e) => handleContextMenu(e, meeting.id)}>&#8942;</div>
+                                                                    {contextMenuId === meeting.id && isContextMenuVisible && (
+                                                                        <div className={styles["context-menu-items"]}>
+                                                                            <div className={styles["context-menu-item"]} onClick={() => handleTranscriptRequest(meeting.id)}>Расшифровать запись</div>
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                            )}
+                                                        </div>
                                                     </div>
-                                                    {meeting.transcript_status === 0 && (
-                                                        <div>
-                                                            <button
-                                                                className={`${styles["request-transcript-button"]} ${requestedTranscriptIds.includes(meeting.id) ? styles["disabled"] : ""}`}
-                                                                onClick={() => handleTranscriptRequest(meeting.id)}
-                                                                disabled={requestedTranscriptIds.includes(meeting.id) || meeting.transcript_requested === 1}
-                                                            >
-                                                                {requestedTranscriptIds.includes(meeting.id) ? "Запрос отправлен" : "Запросить транскрипцию"}
-                                                            </button>
-                                                        </div>
-                                                    )}
-                                                    {meeting.transcript_link && (
-                                                        <div>
-                                                            <a href={meeting.transcript_link} className={styles["transcript-download-link"]}>Ссылка на скачивание транскрипции</a>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            ))}
+
+                                                ))}
+                                            </div>
                                         </div>
                                     </div>
                                 </li>

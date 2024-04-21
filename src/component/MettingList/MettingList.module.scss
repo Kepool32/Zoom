@@ -1,7 +1,6 @@
-
-
 .record-content-item {
   min-height: 200px;
+  padding: 0 20px;
 }
 
 .meeting-list {
@@ -20,17 +19,26 @@
   gap: 20px;
   border: 1px 0 0 0;
   opacity: 1;
+  position: relative;
 }
 
 .record-links {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap:10px;
+}
+.record-links img {
+  width: 44px;
+  height: 44px;
+  padding: 0 10px;
 }
 .record-links-item {
   margin-bottom: 10px;
 }
-
+.record-date-item{
+  text-align: start;
+  padding: 10px;
+}
 .transcript-download-link {
   margin-left: 20px;
 }
@@ -48,3 +56,61 @@
   background-color: #ccc;
   cursor: not-allowed;
 }
+
+.context-menu {
+  position: relative;
+}
+
+.context-menu-icon {
+  cursor: pointer;
+}
+.record-links-container a {
+  color: #4C9AF9;
+}
+
+
+.context-menu-items {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.download-link-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.download-links-container{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px;
+  text-align: left;
+}
+
+.download-links-container a{
+  color: #4C9AF9;
+}
+.context-menu-items.active {
+  display: block;
+}
+.context-menu-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.context-menu-item:hover {
+  background-color: #f0f0f0;
+}
+.context-menu {
+  position: absolute;
+  right: 10px;
+}
+

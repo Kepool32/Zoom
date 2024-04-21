@@ -3,26 +3,35 @@
   justify-content: center;
   align-items: center;
   margin-top: 20px;
+  gap: 15px;
 }
 
 .paginationButton {
-  padding: 10px 15px;
+
+  padding: 6px;
   margin: 0 5px;
   font-size: 16px;
-  color: #007bff;
-  background-color: transparent;
-  border: 1px solid #007bff;
-  border-radius: 4px;
+  color: #F6F5F6;
+  border: 1.22px solid #999fa4;
+  border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
 }
-
-.paginationButton:hover {
-  background-color: #007bff;
-  color: #fff;
-}
-
 .paginationInfo {
   margin: 0 10px;
   font-size: 16px;
+}
+
+.paginationIcon {
+  transform: translateY(-50%);
+  color: #5B5B5B;
+  padding: 10px 15px;
+}
+
+.paginationButton:first-child .paginationIcon {
+  left: 9px;
+}
+
+.paginationButton:last-child .paginationIcon {
+  right: 9px;
 }

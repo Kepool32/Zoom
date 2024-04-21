@@ -3,9 +3,9 @@ import axios from 'axios';
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || " ";
 
 
-export const fetchMeetingRecords = async (domain: string, page: number, perPage: number) => {
+export const fetchMeetingRecords = async (domain: string, page: number, perPage: number,dateFrom?:string,dateTo?:string) => {
     try {
-        const response = await axios.post(`${API_BASE_URL}/records`, { domain, page, perPage });
+        const response = await axios.post(`${API_BASE_URL}/records`, { domain, page, perPage,dateFrom,dateTo });
         return response.data;
     } catch (error) {
         console.error('Error fetching meeting records:', error);

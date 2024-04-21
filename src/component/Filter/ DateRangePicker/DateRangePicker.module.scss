@@ -1,0 +1,67 @@
+
+.dateRangePicker {
+  position: absolute; /* Абсолютное позиционирование */
+  top:75%;
+  right: 30%;
+  z-index: 999;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+
+}
+
+.react-datepicker {
+  font-family: 'PT Sans';
+}
+
+.react-datepicker__day-name, .react-datepicker__day {
+  text-transform: capitalize; /* Начинаем названия дней недели с большой буквы */
+}
+
+.customDay {
+  color: #000; /* Цвет дней недели */
+}
+
+.customCalendar {
+  border: none; /* Убираем бордеры */
+  background: transparent; /* Убираем фон */
+}
+.periodTable {
+
+  display: flex;
+  flex-direction: column;
+}
+
+.periodCell {
+  padding: 10px;
+  border-left: 1px solid #ccc; /* Правый бордер между ячейками */
+  cursor: pointer; /* Устанавливаем курсор в виде указателя */
+}
+
+/* DatePicker.module.scss */
+
+.datePickerContainer {
+  position: relative; /* Позиционируем контейнер относительно его потомков */
+}
+
+.readyButton {
+  position: absolute; /* Позиционируем кнопку абсолютно в контейнере */
+  left:5%; /* Поднимаем кнопку над календарем */
+  border: 1px solid #C5C5C5; /* Устанавливаем границы кнопки */
+  width: 51px; /* Ширина кнопки */
+  height: 28px; /* Высота кнопки */
+  padding: 5px 0; /* Отступы внутри кнопки */
+  border-radius: 5px; /* Закругляем левый верхний угол кнопки */
+  background-color: #fff; /* Цвет фона кнопки */
+  cursor: pointer; /* Устанавливаем курсор в виде указателя */
+}
+
+.readyButton:focus {
+  outline: none; /* Убираем фокусную обводку */
+}
+.periodCell:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Изменяем цвет фона при наведении */
+}

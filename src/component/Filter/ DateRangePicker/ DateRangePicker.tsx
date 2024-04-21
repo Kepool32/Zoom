@@ -50,7 +50,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSelect }) => {
         setIsDatePickerOpen(false);
         if (endDate && startDate) {
             onSelect && onSelect(startDate, endDate);
-            fetchMeetingRecords(domain, currentPage, perPage, startDate, endDate);
+            fetchMeetingRecords(domain, currentPage, perPage,startDate, endDate);
         }
     };
 
@@ -98,6 +98,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSelect }) => {
         }
         setStartDate(start);
         setEndDate(end);
+        fetchMeetingRecords(domain, currentPage, perPage,start, end);
         setIsSelectingRange(false);
         onSelect && onSelect(start, end);
     };

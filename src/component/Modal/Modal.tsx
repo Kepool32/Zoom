@@ -24,7 +24,7 @@ const Modal: React.FC<ModalProps> = ({ closeModal }) => {
         <div className={styles["modal-container"]}>
             <div className={styles["modal-logo"]}>
                 <img src={slmzoom} alt="" />
-                <img src={CloseIcon} alt="Close" className={styles["close-icon"]} onClick={closeModal} />
+                <img src={CloseIcon} alt="" className={styles["close-icon"]} onClick={closeModal} />
             </div>
             <div className={styles["modal-content"]} onClick={(event) => event.stopPropagation()}>
                 <FilterSearch/>

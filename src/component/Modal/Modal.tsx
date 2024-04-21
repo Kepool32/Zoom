@@ -6,7 +6,7 @@ import FilterSearch from "../Filter/FilterSearch";
 import MySvgImage1 from '../../assets/Frame 7.svg';
 import MySvgImage2 from '../../assets/Frame 5.svg';
 import {useStore} from "../store/index";
-import MySvgImage from "../../assets/Frame 6.svg";
+
 
 interface ModalProps {
     closeModal: () => void;

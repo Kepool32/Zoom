@@ -34,7 +34,7 @@ const DateRangePicker: React.FC<{ onSelect: (startDate: Date | null, endDate: Da
         fetchMeetingRecords(domain, currentPage, perPage, endDate, startDate);
     };
 
-    const handlePeriodButtonClick = (period) => {
+    const handlePeriodButtonClick = (period:string) => {
         const today = new Date();
         let start, end;
         switch (period) {

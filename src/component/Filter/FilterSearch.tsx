@@ -6,14 +6,14 @@ import DateRangePicker from "./ DateRangePicker/ DateRangePicker";
 import {useStore} from "../store/index";
 
 
-const FilterSearch = () => {
+const FilterSearch: React.FC = () => {
     const {
         fetchMeetingRecords,
         currentPage
     } = useStore();
     const [showModal, setShowModal] = useState(false);
     const [showDataPicker, setShowDataPicker] = useState(false);
-    const [selectedPeriod, setSelectedPeriod] = useState({ startDate: null, endDate: null });
+    const [selectedPeriod, setSelectedPeriod] = useState<{ startDate: Date | null, endDate: Date | null }>({ startDate: null, endDate: null });
     const domain = (window as any)?.AMOCRM?.widgets?.system?.domain || "edormash.amocrm.ru";
     const perPage = 2;
 
@@ -25,7 +25,7 @@ const FilterSearch = () => {
         setShowDataPicker(!showDataPicker);
     };
 
-    const handleSelectPeriod = (startDate, endDate) => {
+    const handleSelectPeriod = (startDate:null | Date, endDate:null | Date) => {
         setSelectedPeriod({ startDate, endDate });
         handleDateRangeClick()
     };

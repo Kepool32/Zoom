@@ -43,7 +43,7 @@ const MeetingList: React.FC = () => {
         }
     };
 
-    const handleContextMenu = (e: React.MouseEvent, meetingId: number) => {
+    const handleContextMenu = (meetingId: number) => {
         if (contextMenuId === meetingId) {
             setContextMenuId(null);
             setContextMenuVisible(false);
@@ -84,7 +84,7 @@ const MeetingList: React.FC = () => {
 
                                                             {!meeting.transcript_status && (
                                                                 <div className={styles["context-menu"]}>
-                                                                    <div className={styles["context-menu-icon"]} onClick={(e) => handleContextMenu(e, meeting.id)}>&#8942;</div>
+                                                                    <div className={styles["context-menu-icon"]} onClick={() => handleContextMenu( meeting.id)}>&#8942;</div>
                                                                     {contextMenuId === meeting.id && isContextMenuVisible && (
                                                                         <div className={styles["context-menu-items"]}>
                                                                             <div className={styles["context-menu-item"]} onClick={() => handleTranscriptRequest(meeting.id)}>Расшифровать запись</div>

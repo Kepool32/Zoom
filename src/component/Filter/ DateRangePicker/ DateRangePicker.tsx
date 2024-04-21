@@ -1,25 +1,42 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import ru from 'date-fns/locale/ru';
 import styles from './DateRangePicker.module.scss';
 import { useStore } from "../../store/index";
 
-const DateRangePicker: React.FC<{ onSelect: (startDate: Date | null, endDate: Date | null) => void }> = ({ onSelect }) => {
-    const { fetchMeetingRecords, currentPage } = useStore();
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
-    const [isSelectingRange, setIsSelectingRange] = useState(false);
+interface DateRangePickerProps {
+    onSelect: (start: Date | null, end: Date | null) => void;
+}
+
+const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSelect }) => {
+    const {
+        fetchMeetingRecords,
+        currentPage
+    } = useStore();
+
+    const [startDate, setStartDate] = useState<Date | null>(null);
+    const [endDate, setEndDate] = useState<Date | null>(null);
+    const [isSelectingRange, setIsSelectingRange] = useState<boolean>(false);
+    const [isDatePickerOpen, setIsDatePickerOpen] = useState<boolean>(false);
     const domain = (window as any)?.AMOCRM?.widgets?.system?.domain || "edormash.amocrm.ru";
     const perPage = 2;
 
-    const handleDateChange = (dates) => {
+    const handleDateChange = (dates: [Date | null, Date | null] | null) => {
+        if (dates === null) {
+            setStartDate(null);
+            setEndDate(null);
+            setIsSelectingRange(false);
+            return;
+        }
+
         const [start, end] = dates;
         if (!isSelectingRange) {
             setStartDate(start);
             setEndDate(null);
             setIsSelectingRange(true);
         } else {
-            if (start <= endDate) {
+            if (start && end && start <= end) {
                 setStartDate(start);
                 setEndDate(end);
             } else {
@@ -30,13 +47,17 @@ const DateRangePicker: React.FC<{ onSelect: (startDate: Date | null, endDate: Da
     };
 
     const handleReadyClick = () => {
-        onSelect && onSelect(endDate, startDate);
-        fetchMeetingRecords(domain, currentPage, perPage, endDate, startDate);
+        setIsDatePickerOpen(false);
+        if (endDate && startDate) {
+            onSelect && onSelect(startDate, endDate);
+            fetchMeetingRecords(domain, currentPage, perPage, startDate, endDate);
+        }
     };
 
-    const handlePeriodButtonClick = (period:string) => {
+    const handlePeriodButtonClick = (period: string) => {
         const today = new Date();
-        let start, end;
+        let start = null;
+        let end = null;
         switch (period) {
             case 'today':
                 start = new Date(today);
@@ -78,7 +99,6 @@ const DateRangePicker: React.FC<{ onSelect: (startDate: Date | null, endDate: Da
         setStartDate(start);
         setEndDate(end);
         setIsSelectingRange(false);
-        fetchMeetingRecords(domain, currentPage, perPage, start, end);
         onSelect && onSelect(start, end);
     };
 
@@ -92,9 +112,11 @@ const DateRangePicker: React.FC<{ onSelect: (startDate: Date | null, endDate: Da
                     endDate={endDate}
                     selectsRange
                     inline
+                    // @ts-ignore
                     locale={ru}
-                    dayClassName={(date) => `${styles.customDay}`}
+                    dayClassName={() => `${styles.customDay}`}
                     calendarClassName={styles.customCalendar}
+                    onFocus={() => setIsDatePickerOpen(!isDatePickerOpen)}
                 />
                 {isSelectingRange && (
                     <div>

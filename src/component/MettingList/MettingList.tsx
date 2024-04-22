@@ -3,7 +3,7 @@ import { useStore } from "../store/index";
 import Loader from "../Loader/Loader";
 import Pagination from "../pagination/Pagination";
 import styles from "./MettingList.module.scss";
-import MySvgImage from '../../assets/Frame 6.svg';
+import MeetingItems from "./MettingItem/MettingItem";
 
 const MeetingList: React.FC = () => {
     const {
@@ -60,48 +60,14 @@ const MeetingList: React.FC = () => {
             ) : (
                 <>
                     <div className={styles["record-content-item"]}>
-                        <ul className={styles["meeting-list"]}>
-                            {meetingRecords.map((record: any, index: number) => (
-                                <li key={index} className={styles["meeting-item"]}>
-                                    <div className={styles["record-item"]}>
-
-                                        <div className={styles["record-links"]}>
-                                            <img src={MySvgImage} alt="" />
-                                            <div>
-                                                {record.records.map((meeting: any, index: number) => (
-
-                                                    <div key={index} className={styles["record-links-item"]}>
-                                                        <div className={styles["record-date-item"]}>{formatDateString(record.created_at)}</div>
-                                                        <div className={styles["download-link-container"]}>
-                                                            <div className={styles["download-links-container"]}>
-                                                                <a href={meeting.record_link}>Ссылка на скачивание</a>
-                                                                {meeting.transcript_status === 1 && (
-
-                                                                    <a href={meeting.transcript_link}>Ссылка на транскрипцию</a>
-
-                                                                )}
-                                                            </div>
-
-                                                            {!meeting.transcript_status && (
-                                                                <div className={styles["context-menu"]}>
-                                                                    <div className={styles["context-menu-icon"]} onClick={() => handleContextMenu( meeting.id)}>&#8942;</div>
-                                                                    {contextMenuId === meeting.id && isContextMenuVisible && (
-                                                                        <div className={styles["context-menu-items"]}>
-                                                                            <div className={styles["context-menu-item"]} onClick={() => handleTranscriptRequest(meeting.id)}>Расшифровать запись</div>
-                                                                        </div>
-                                                                    )}
-                                                                </div>
-                                                            )}
-                                                        </div>
-                                                    </div>
-
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
+                        <MeetingItems
+                            meetingRecords={meetingRecords}
+                            formatDateString={formatDateString}
+                            handleTranscriptRequest={handleTranscriptRequest}
+                            handleContextMenu={handleContextMenu}
+                            contextMenuId={contextMenuId}
+                            isContextMenuVisible={isContextMenuVisible}
+                        />
                     </div>
                     <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
                 </>

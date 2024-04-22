@@ -1,0 +1,36 @@
+{
+    "widget": {
+        "name": "widget.name",
+        "description": "widget.description",
+        "short_description": "widget.short_description",
+        "version": "1.3.2",
+        "interface_version": 2,
+        "init_once": false,
+        "locale": ["ru"],
+        "installation": true,
+        "support": {
+            "link": " ",
+            "email": " "
+        }
+    },
+    "locations": [
+        "everywhere",
+        "settings",
+        "advanced_settings"
+    ],
+    "settings": {
+        "script_url": {
+            "name":"settings.script_url",
+            "type":"text",
+            "required": false
+        },
+        "scriptCss_url": {
+            "name":"settings.scriptCss_url",
+            "type":"text",
+            "required": false
+        }
+    },
+    "advanced": {
+        "title": "advanced.title"
+    }
+}

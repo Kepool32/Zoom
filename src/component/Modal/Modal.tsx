@@ -3,8 +3,8 @@ import styles from "./Modal.module.scss";
 import MeetingList from "../MettingList/MettingList";
 import { WindowWithAMOCRM } from "./interface/WindowWithAMOCRM";
 import FilterSearch from "../Filter/FilterSearch";
-import MySvgImage1 from '../../assets/Frame8.svg';
-import MySvgImage2 from '../../assets/Frame 5.svg';
+import MySvgImage1 from '../../assets/SLMlogo.svg';
+import MySvgImage2 from '../../assets/Exit.svg';
 import {useStore} from "../store/index";
 
 
@@ -26,7 +26,7 @@ const Modal: React.FC<ModalProps> = ({ closeModal }) => {
             <div className={styles["modal-logo"]}>
                 <div className={styles["modal-slm"]}>
                     <img src={MySvgImage1} alt="" />
-                    <span>SlmZoom</span>
+                    <span>SlMZoom</span>
                 </div>
 
                 <img src={MySvgImage2} alt="" className={styles["close-icon"]} onClick={closeModal} />

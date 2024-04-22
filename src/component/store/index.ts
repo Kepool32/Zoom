@@ -1,9 +1,10 @@
 import create from 'zustand';
 import { fetchMeetingRecords, createMeeting, fetchTranscript } from '../services/api';
+import {MeetingRecord} from "./interface/MettingRecords";
 
 interface AppState {
     modalIsOpen: boolean;
-    meetingRecords: any[];
+    meetingRecords: MeetingRecord[];
     currentPage: number;
     totalPages: number;
     isLoading: boolean;

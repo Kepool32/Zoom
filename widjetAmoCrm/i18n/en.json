@@ -1,0 +1,16 @@
+{
+  "widget": {
+    "name": "ServicePanel",
+    "short_description": "Сервис для подключения виджетов от Команды F5",
+    "description": "<p class=\"widget_header__description_h\">Описание:</p>С помощью \"ServicePanel\" - подключение и настройка виджетов \"Команды F5\" стали удобнее, быстрее и проще.<p class=\"widget_header__description_h\">Как работает:</p>Кнопка \"ServicePanel\" встраивается в панель навигации amoCRM и доступна в один клик. Все доступные виджеты \"Команды F5\" будут сразу же готовы к установке и настройке.<p class=\"widget_header__description_h\">Подключение:</p>Установите виджет \"ServicePanel\", после чего вы получите свой <a href=\"https://servicepanel.ru/\">личный кабинет</a>, где в качестве логина будет ваш логин amoCRM, в качестве пароля - указанный при установке виджета пароль.<br><p id=\"cmdf5mv\" style=\"margin:15px 0 7px 0;\" data-embed=\"//www.youtube.com/embed/XdT13IeIKXE\">Видео—демонстрация: <a href=\"//youtu.be/XdT13IeIKXE\" target=\"_blank\">https://youtu.be/XdT13IeIKXE</a></p><p>Если у вас возникли трудности с установкой виджета, требуются помощь или консультация, то просто обратитесь к нам:</p><span style=\"width:70px;display:inline-block;margin:7px 0 0 0;\">Телефон:</span> +7(495)248-01-05<br><span style=\"width:70px;display:inline-block;margin:1px 0;\">Email:</span> <a href=\"mailto:info@comf5.ru\" target=\"_blank\">info@comf5.ru</a><br><span style=\"width:70px;display:inline-block;\">Сайт:</span> <a href=\"https://cmdf5.ru/\" target=\"_blank\">cmdf5.ru</a><br><br><label class=\"control-checkbox\" style=\"display:block;font-size:14px;color:#777;\"><span class=\"control-checkbox__body\" style=\"float:left;margin:8px 9px 0 0;}\"><input type=\"checkbox\" id=\"sp_checker\"><span class=\"control-checkbox__helper\"></span></span><span class=\"element__text\" title=\"Я подтверждаю согласие на передачу данных аккаунта amoCRM (API-ключ, логин, информация об аккаунте) на сервер ServicePanel и принимаю условия оферты\">Я подтверждаю согласие на передачу данных аккаунта amoCRM (API-ключ, логин, информация об аккаунте) на сервер ServicePanel и принимаю <a href=\"http://servicepanel.ru/agreement.pdf\" target=\"_blank\">условия оферты</a>.</span></label>"
+  },
+  "advanced":{
+    "title":"Settings menu item title"
+  },
+  "settings": {
+	"server": "Сервер",
+	"phone": "Ваш номер телефона",
+    "pass": "Пароль для входа",
+	"promo": "Промокод"
+  }
+}

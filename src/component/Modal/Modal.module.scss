@@ -63,7 +63,14 @@
     margin: 20px;
     text-align: start;
 }
-
+.closeButton {
+    position: absolute;
+    top: 5px;
+    right: 25px;
+    cursor: pointer;
+    color: white;
+    font-size: 36px;
+}
 .modal-logo {
     position: relative;
     display: flex;

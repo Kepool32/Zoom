@@ -18,7 +18,7 @@ const MeetingList: React.FC = () => {
     const [contextMenuId, setContextMenuId] = useState<number | null>(null);
     const [isContextMenuVisible, setContextMenuVisible] = useState<boolean>(false);
     const domain = (window as any)?.AMOCRM?.widgets?.system?.domain || "edormash.amocrm.ru";
-    const perPage = 2;
+    const perPage = 3;
 
     useEffect(() => {
         fetchMeetingRecords(domain, currentPage, perPage);

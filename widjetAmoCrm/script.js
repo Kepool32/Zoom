@@ -89,6 +89,7 @@ define(['jquery'], function($) {
 					$this.serverResponse = code;
 
 					if ($this.serverResponse === 10) {
+
 						$this.render_template({
 							caption: {
 								class_name: 'alco_right_side_widget'

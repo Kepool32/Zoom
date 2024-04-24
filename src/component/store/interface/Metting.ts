@@ -18,3 +18,8 @@ interface MeetingRecordDetail {
     transcript_requested: number;
     transcript_status: number;
 }
+
+export interface MeetingData {
+    start_url: string;
+    join_url: string;
+}

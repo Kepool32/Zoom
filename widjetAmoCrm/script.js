@@ -156,12 +156,15 @@ define(['jquery'], function($) {
 				var deleteUserButton;
 
 				var showConfirmationMessage = function(name, description) {
-					// Создание сообщения о подтверждении домена
+
 					var $confirmationMessage = $("<div>").css({
 						backgroundColor: "white",
-						padding: "20px",
-						marginBottom: "20px"
+						padding: "10px 20px",
+						borderTop: "20px solid #f4f4f4",
+						width: "100%",
+						marginLeft: "-20px"
 					});
+
 
 					var $confirmationTitle = $("<h1>").text(name).css({
 						fontSize: "24px",

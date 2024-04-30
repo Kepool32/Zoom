@@ -4,10 +4,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import ru from 'date-fns/locale/ru';
 import styles from './DateRangePicker.module.scss';
 import { useStore } from "../../store/index";
+import {DateRangePickerProps, PeriodLabels} from "../interface/DataRangePicker";
 
-interface DateRangePickerProps {
-    onSelect: (start: Date | null, end: Date | null) => void;
-}
 
 const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSelect }) => {
     const {
@@ -22,15 +20,17 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSelect }) => {
     const domain = (window as any)?.AMOCRM?.widgets?.system?.domain || "edormash.amocrm.ru";
     const perPage = 2;
 
-    const periodLabels = {
-        today: 'За сегодня',
-        yesterday: 'За вчера',
-        thisWeek: 'За неделю',
-        lastWeek: 'За прошлую неделю',
-        thisMonth: 'За месяц',
-        lastMonth: 'За прошлый месяц',
-        thisYear: 'За год',
+
+    const periodLabels: PeriodLabels = {
+        today: 'Today',
+        yesterday: 'Yesterday',
+        thisWeek: 'This Week',
+        lastWeek: 'Last Week',
+        thisMonth: 'This Month',
+        lastMonth: 'Last Month',
+        thisYear: 'This Year',
     };
+
 
     const handleDateChange = (dates: [Date | null, Date | null] | null) => {
         if (dates === null) {

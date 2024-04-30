@@ -1,7 +1,6 @@
 import create from 'zustand';
 import { fetchMeetingRecords, createMeeting, fetchTranscript } from '../services/api';
-import { MeetingRecord } from "./interface/MettingRecords";
-import {MeetingData} from "./interface/Metting";
+import {MeetingData, MeetingRecord} from "./interface/Metting";
 
 interface AppState {
     modalIsOpen: boolean;

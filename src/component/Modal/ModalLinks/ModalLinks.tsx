@@ -13,9 +13,11 @@ const ModalLinks: React.FC<ModalLinksProps> = ({ closeModal }) => {
     const [copied, setCopied] = useState(false);
 
     const copyToClipboard = () => {
-        navigator.clipboard.writeText(createdMeetingData.join_url);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
+        if (createdMeetingData !== null) {
+            navigator.clipboard.writeText(createdMeetingData.join_url);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        }
     };
 
     return (

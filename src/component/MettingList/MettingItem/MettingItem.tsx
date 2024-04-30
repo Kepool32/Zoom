@@ -9,7 +9,7 @@ interface MeetingItemsProps {
     handleContextMenu: (meetingId: number) => void;
     contextMenuId: number | null;
     isContextMenuVisible: boolean;
-    domain: string;
+
 }
 
 const MeetingItems: React.FC<MeetingItemsProps> = ({

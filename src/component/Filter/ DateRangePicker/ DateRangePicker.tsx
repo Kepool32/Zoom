@@ -22,6 +22,16 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSelect }) => {
     const domain = (window as any)?.AMOCRM?.widgets?.system?.domain || "edormash.amocrm.ru";
     const perPage = 2;
 
+    const periodLabels = {
+        today: 'За сегодня',
+        yesterday: 'За вчера',
+        thisWeek: 'За неделю',
+        lastWeek: 'За прошлую неделю',
+        thisMonth: 'За месяц',
+        lastMonth: 'За прошлый месяц',
+        thisYear: 'За год',
+    };
+
     const handleDateChange = (dates: [Date | null, Date | null] | null) => {
         if (dates === null) {
             setStartDate(null);
@@ -127,13 +137,11 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSelect }) => {
             </div>
 
             <div className={styles.periodTable}>
-                <div className={styles.periodCell} onClick={() => handlePeriodButtonClick('today')}>За сегодня</div>
-                <div className={styles.periodCell} onClick={() => handlePeriodButtonClick('yesterday')}>За вчера</div>
-                <div className={styles.periodCell} onClick={() => handlePeriodButtonClick('thisWeek')}>За неделю</div>
-                <div className={styles.periodCell} onClick={() => handlePeriodButtonClick('lastWeek')}>За прошлую неделю</div>
-                <div className={styles.periodCell} onClick={() => handlePeriodButtonClick('thisMonth')}>За месяц</div>
-                <div className={styles.periodCell} onClick={() => handlePeriodButtonClick('lastMonth')}>За прошлый месяц</div>
-                <div className={styles.periodCell} onClick={() => handlePeriodButtonClick('thisYear')}>За год</div>
+                {Object.keys(periodLabels).map(period => (
+                    <div key={period} className={styles.periodCell} onClick={() => handlePeriodButtonClick(period)}>
+                        {periodLabels[period]}
+                    </div>
+                ))}
             </div>
         </div>
     );

@@ -1,0 +1,14 @@
+{
+    "widget": {
+        "name": "ZoomSLM",
+        "short_description": "ZoomSLM",
+        "description": "ZoomSLM"
+    },
+    "advanced":{
+        "title":"ZoomSLM"
+    },
+    "settings": {
+        "script_url": "Ссылка скрипта js",
+        "scriptCss_url": "Ссылка скрипта css"
+    }
+}

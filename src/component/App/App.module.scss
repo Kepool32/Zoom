@@ -7,7 +7,7 @@
   font-family: 'PT Sans', sans-serif;
   flex-direction: column;
   gap: 20px;
-  background-color: white;
+  margin-top: 10px;
 }
 .select-options{
   font-size: 24px;
@@ -55,13 +55,12 @@
 }
 
 .create-meeting-button {
-  padding: 10px 47px; /* Отступы */
-
+  padding: 10px 47px;
   border-radius: 5px;
   border: 1px solid #4C8BF7;
   background: #4C8BF7;
   color: white;
-  font-size: 16px;
+  font-size: 12px;
   cursor: pointer;
   transition-duration: 0.4s;
 }

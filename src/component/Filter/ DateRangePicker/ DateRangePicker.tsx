@@ -22,13 +22,13 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSelect }) => {
 
 
     const periodLabels: PeriodLabels = {
-        today: 'Today',
-        yesterday: 'Yesterday',
-        thisWeek: 'This Week',
-        lastWeek: 'Last Week',
-        thisMonth: 'This Month',
-        lastMonth: 'Last Month',
-        thisYear: 'This Year',
+        today: 'Сегодня',
+        yesterday: 'Вчера',
+        thisWeek: 'На этой неделе',
+        lastWeek: 'На прошлой неделе',
+        thisMonth: 'В этом месяце',
+        lastMonth: 'В прошлом месяце',
+        thisYear: 'В этом году',
     };
 
 

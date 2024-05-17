@@ -26,6 +26,7 @@
 
 }
 .section{
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 2px;
@@ -41,7 +42,8 @@
 
 }
 .section a{
-    color:#2969d1
+    color:#2969d1;
+    overflow: hidden;
 }
 .title{
 
@@ -55,9 +57,10 @@
 }
 .linkscopy{
     background-color: #EAF5F8;
-    padding: 5px 0;
+
 ;
 }
+
 .sharecopy {
     padding: 5px 10px 5px 5px;
     background-color:#C5E4EB;
@@ -69,12 +72,16 @@
     color: #309EBA;
 
 }
+.sharecopy:hover{
+    cursor: pointer;
+}
 .sharecopy span{
     background-color:#C5E4EB;
     padding: 5px;
     color: #309EBA;
 }
 .sharelinks a{
+    display: inline-block;
     padding: 10px;
     color: #309EBA;
 }

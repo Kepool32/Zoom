@@ -31,7 +31,6 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSelect }) => {
         thisYear: 'В этом году',
     };
 
-
     const handleDateChange = (dates: [Date | null, Date | null] | null) => {
         if (dates === null) {
             setStartDate(null);

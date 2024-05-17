@@ -37,8 +37,8 @@ export const useStore = create<AppState>((set) => ({
     },
     createMeeting: async (domain, firstName, entity, entityId) => {
         try {
-            const responseData: MeetingData[] = await createMeeting(domain, firstName, entity, entityId);
-            set({ createdMeetingData: responseData?.data, currentPage: 1 });
+            const responseData = await createMeeting(domain, firstName, entity, entityId);
+            set({ createdMeetingData: (responseData as { data: MeetingData[] }).data, currentPage: 1 });
 
         } catch (error) {
             console.error('Error creating meeting:', error);

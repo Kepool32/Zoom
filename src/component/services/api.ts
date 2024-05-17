@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {MeetingData} from "../store/interface/Metting";
+
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "";
 
@@ -14,10 +14,10 @@ export const fetchMeetingRecords = async (domain: string, page: number, perPage:
     }
 };
 
-export const createMeeting = async (domain: string, firstName: string, entity: string, entityId: number): Promise<MeetingData[]> => {
+export const createMeeting = async (domain: string, firstName: string, entity: string, entityId: number) => {
     try {
         const response = await axios.post(`${API_BASE_URL}/meetings`, { domain, first_name: firstName, entity, entity_id: entityId });
-        return response.data;
+        return response.data.data;
     } catch (error) {
         console.error('Error creating meeting:', error);
         throw error;

@@ -187,8 +187,13 @@ define(['jquery'], function($) {
 						buttonClass: "button1",
 						clickHandler: function() {
 							sendRequest();
-							var $confirmationMessage = showConfirmationMessage("Домен подтвержден", "Ваш домен подтвержден для безопасной отправки сообщений.");
-							$(this).text("Домен подтвержден").prop("disabled", true).after($confirmationMessage);
+							var $button = $work_area.find(".button1");
+							var $buttonTitle = $button.closest("div").find("h1").first();
+							var $buttonDescription = $button.prev("p");
+
+							$buttonTitle.text("Домен подтвержден");
+							$buttonDescription.text("Ваш домен подтвержден для безопасной отправки сообщений.");
+							$button.css("display", "none")
 						}
 					},
 					{

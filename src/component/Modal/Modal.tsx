@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from "./Modal.module.scss";
 import MeetingList from "../MettingList/MettingList";
 import FilterSearch from "../Filter/FilterSearch";
 import MySvgImage1 from '../../assets/SLMlogo.svg';
+import {useStore} from "../store/index";
+import {WindowWithAMOCRM} from "./interface/WindowWithAMOCRM";
+import ModalLinks from "./ModalLinks/ModalLinks";
 
 
 
@@ -11,7 +14,23 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ closeModal }) => {
+    const { createMeeting } = useStore();
+    const [isModalLinksOpen, setIsModalLinksOpen] = useState(false);
 
+    const windowWithAMOCRM = window as WindowWithAMOCRM;
+    const domain = windowWithAMOCRM.AMOCRM?.widgets?.system?.domain || "edormash.amocrm.ru";
+    const id = windowWithAMOCRM.AMOCRM?.data?.current_card?.id || 0;
+    const entity = windowWithAMOCRM.AMOCRM?.data?.current_entity || "Entity";
+    const name = windowWithAMOCRM.AMOCRM?.data?.current_card?.user?.name || "Entity";
+
+
+    const openModalLinks = () => {
+        createMeeting(domain, name, entity, id)
+        setIsModalLinksOpen(true);
+    };
+    const closeModalLinks = () => {
+        setIsModalLinksOpen(false);
+    };
 
     return (
         <div className={styles["modal-container"]}>
@@ -25,7 +44,15 @@ const Modal: React.FC<ModalProps> = ({ closeModal }) => {
             </div>
             <div className={styles["modal-content"]} onClick={(event) => event.stopPropagation()}>
                 <FilterSearch/>
+                <div className={styles["modal-meting"]}>
+                    <button className={styles["create-meeting-button"]} onClick={openModalLinks}>Создать встречу в Zoom</button>
+                </div>
                 <span className={styles["meeting-title"]}>Список встреч</span>
+                {isModalLinksOpen && (
+                    <div className={styles["modal-background"]} onClick={closeModalLinks}>
+                        <ModalLinks closeModal={closeModalLinks} />
+                    </div>
+                )}
                 <MeetingList />
             </div>
         </div>

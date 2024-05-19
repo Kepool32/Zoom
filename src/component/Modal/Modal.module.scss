@@ -85,5 +85,35 @@
     right: 40px;
     cursor: pointer;
 }
+.create-meeting-button {
+    padding: 10px 47px;
+    border-radius: 5px;
+    border: 1px solid #4C8BF7;
+    background: #4C8BF7;
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
 
+.create-meeting-button:hover {
+    background-color: #3255a0;
+    border-color: #3255a0;
+}
 
+.modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal-meting{
+    display: flex;
+    justify-content: end;
+    padding: 20px 20px 0;
+}

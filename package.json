@@ -12,6 +12,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.5.2",
     "axios": "^1.6.8",
+    "lodash.debounce": "^4.0.8",
     "react": "^18.2.0",
     "react-date-range": "^2.0.0-alpha.4",
     "react-datepicker": "^6.9.0",
@@ -20,6 +21,7 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@types/lodash.debounce": "^4.0.9",
     "@types/node": "^20.12.7",
     "@types/react": "^18.2.66",
     "@types/react-datepicker": "^6.2.0",

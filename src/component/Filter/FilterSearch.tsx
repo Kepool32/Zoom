@@ -17,7 +17,7 @@ const FilterSearch: React.FC = memo(() => {
     const [showDataPicker, setShowDataPicker] = useState(false);
     const [selectedPeriod, setSelectedPeriod] = useState<{ startDate: Date | null, endDate: Date | null }>({ startDate: null, endDate: null });
     const domain = (window as any)?.AMOCRM?.widgets?.system?.domain || "edormash.amocrm.ru";
-    const perPage = 2;
+    const perPage = 3;
 
     const debouncedFetch = useCallback(
         debounce((searchName: string | undefined, dateFrom: Date | null, dateTo: Date | null) => {
@@ -34,7 +34,7 @@ const FilterSearch: React.FC = memo(() => {
         return () => {
             debouncedFetch.cancel();
         };
-    }, [searchName, debouncedFetch]);
+    }, [searchName]);
 
     const handleFilterClick = () => {
         setShowModal(!showModal);

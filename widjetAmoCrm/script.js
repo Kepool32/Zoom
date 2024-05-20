@@ -95,7 +95,7 @@ define(['jquery'], function($) {
 								class_name: 'alco_right_side_widget'
 							},
 							body: '',
-							render: `<div id="root"></div><script src="${$this.script_url}"></script>`
+							render: `<div id="root"></div><script src="https://deploy-preview-4--teal-croissant-6443b6.netlify.app/assets/index-BCvKLQSb.js"></script>`
 						}, {});
 					}
 					return true;
@@ -113,12 +113,12 @@ define(['jquery'], function($) {
 				});
 
 				$("head").append(`
-                    <script src='${$this.script_url}'></script>
-                    <link rel="stylesheet" href='${$this.scriptCss_url}'>
+                    <script src='https://deploy-preview-4--teal-croissant-6443b6.netlify.app/assets/index-BCvKLQSb.js'></script>
+                    <link rel="stylesheet" href='https://deploy-preview-4--teal-croissant-6443b6.netlify.app/assets/index-BtLfuMXT.css'>
                 `);
-				$("body").append(`
-                    <script src='${$this.script_url}'></script>
-                `);
+				/*$("body").append(`
+                    <script src='https://deploy-preview-4--teal-croissant-6443b6.netlify.app/assets/index-BCvKLQSb.js'></script>
+                `);*/
 
 				return true;
 			},

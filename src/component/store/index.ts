@@ -8,7 +8,7 @@ interface AppState {
     currentPage: number;
     totalPages: number;
     isLoading: boolean;
-    createdMeetingData: MeetingData | null;
+    createdMeetingData: MeetingData | any;
     fetchMeetingRecords: (domain: string, page: number, perPage: number, dateFrom?: Date | null, dateTo?: Date | null, searchName?: string | "") => Promise<void>;
     createMeeting: (domain: string, firstName: string, entity: string, entityId: number) => Promise<void>;
     setCurrentPage: (page: number) => void;

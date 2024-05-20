@@ -14,7 +14,7 @@ const ModalLinks: React.FC<ModalLinksProps> = ({ closeModal }) => {
     const [copied, setCopied] = useState(false);
 
     const copyToClipboard = () => {
-        if (createdMeetingData !== null) {
+        if (createdMeetingData.join_url) {
             navigator.clipboard.writeText(createdMeetingData.join_url);
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
@@ -23,32 +23,46 @@ const ModalLinks: React.FC<ModalLinksProps> = ({ closeModal }) => {
 
     return (
         <>
-        {createdMeetingData ? (
-                <div className={styles.modal}>
-                    <div className={styles.modalContent}>
-                        <span className={styles.closeButton} onClick={closeModal}>×</span>
-                        <div className={styles.links} onClick={(event) => event.stopPropagation()}>
-                            <div className={styles.section}>
-                                <span className={styles.title}>Ваша Zoom встреча готова !</span>
-                                <span>Подключиться:</span>
-                                <a href={createdMeetingData.start_url} target="_blank">{createdMeetingData.start_url}</a>
-                            </div>
-                            <div className={styles.sharelinks}>
-                                <div className={styles.sharecopy} onClick={copyToClipboard}>
-                                    <span>Поделиться ссылкой:</span>
-                                    {copied ? (
-                                        <FaCheckCircle className="copied-icon" />
-                                    ) : (
-                                        <FaRegCopy className="share-icon"  />
-                                    )}
-                                </div>
-                                <div className={styles.linkscopy}>
-                                    <a href={createdMeetingData.join_url} target="_blank">{createdMeetingData.join_url}</a>
+            {createdMeetingData ? (
+                !createdMeetingData?.start_url ? (
+                    <div className={styles.modal}>
+                        <div className={styles.modalContent}>
+                            <span className={styles.closeButton} onClick={closeModal}>×</span>
+                            <div className={styles.links} onClick={(event) => event.stopPropagation()}>
+                                <div className={styles.section}>
+                                    <span className={styles.title}>Ошибка</span>
+                                    <span>{createdMeetingData}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                ) : (
+                    <div className={styles.modal}>
+                        <div className={styles.modalContent}>
+                            <span className={styles.closeButton} onClick={closeModal}>×</span>
+                            <div className={styles.links} onClick={(event) => event.stopPropagation()}>
+                                <div className={styles.section}>
+                                    <span className={styles.title}>Ваша Zoom встреча готова !</span>
+                                    <span>Подключиться:</span>
+                                    <a href={createdMeetingData?.start_url} target="_blank">{createdMeetingData?.start_url}</a>
+                                </div>
+                                <div className={styles.sharelinks}>
+                                    <div className={styles.sharecopy} onClick={copyToClipboard}>
+                                        <span>Поделиться ссылкой:</span>
+                                        {copied ? (
+                                            <FaCheckCircle className="copied-icon" />
+                                        ) : (
+                                            <FaRegCopy className="share-icon"  />
+                                        )}
+                                    </div>
+                                    <div className={styles.linkscopy}>
+                                        <a href={createdMeetingData?.join_url} target="_blank">{createdMeetingData?.join_url}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
             ) : (
                 <Loader />
             )}

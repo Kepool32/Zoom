@@ -17,7 +17,9 @@ export const fetchMeetingRecords = async (domain: string, page: number, perPage:
 export const createMeeting = async (domain: string, firstName: string, entity: string, entityId: number) => {
     try {
         const response = await axios.post(`${API_BASE_URL}/meetings`, { domain, first_name: firstName, entity, entity_id: entityId });
-        return response.data.data;
+
+        return response.data.data || response.data.message;
+
     } catch (error) {
         console.error('Error creating meeting:', error);
         throw error;

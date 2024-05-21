@@ -83,42 +83,30 @@ define(['jquery'], function($) {
 				$this.script_url = $this.params.script_url;
 				$this.scriptCss_url = $this.params.scriptCss_url;
 
-				try {
-
-					const code = await sendRequest();
-					$this.serverResponse = code;
-
-					if ($this.serverResponse === 10) {
-
-						$this.render_template({
+				$this.render_template({
 							caption: {
 								class_name: 'alco_right_side_widget'
 							},
 							body: '',
-							render: `<div id="root"></div><script src="https://deploy-preview-4--teal-croissant-6443b6.netlify.app/assets/index-BCvKLQSb.js"></script>`
+							render: `<div id="root"></div>`
 						}, {});
-					}
+
 					return true;
-				} catch (error) {
-					console.error("Ошибка при отправке запроса:", error);
-					return false;
-				}
+
 			},
 
 			init: function() {
 				require([
-
+					$this.script_url
 				], function(WidgetClass) {
 
 				});
 
-				$("head").append(`
-                    <script src='https://deploy-preview-4--teal-croissant-6443b6.netlify.app/assets/index-BCvKLQSb.js'></script>
-                    <link rel="stylesheet" href='https://deploy-preview-4--teal-croissant-6443b6.netlify.app/assets/index-BtLfuMXT.css'>
+					$("head").append(`
+                   
+                   <link rel="stylesheet" href='${$this.scriptCss_url}'>
                 `);
-				/*$("body").append(`
-                    <script src='https://deploy-preview-4--teal-croissant-6443b6.netlify.app/assets/index-BCvKLQSb.js'></script>
-                `);*/
+
 
 				return true;
 			},
@@ -187,13 +175,8 @@ define(['jquery'], function($) {
 						buttonClass: "button1",
 						clickHandler: function() {
 							sendRequest();
-							var $button = $work_area.find(".button1");
-							var $buttonTitle = $button.closest("div").find("h1").first();
-							var $buttonDescription = $button.prev("p");
-
-							$buttonTitle.text("Домен подтвержден");
-							$buttonDescription.text("Ваш домен подтвержден для безопасной отправки сообщений.");
-							$button.css("display", "none")
+							var $confirmationMessage = showConfirmationMessage("Домен подтвержден", "Ваш домен подтвержден для безопасной отправки сообщений.");
+							$(this).text("Домен подтвержден").prop("disabled", true).after($confirmationMessage);
 						}
 					},
 					{

@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom/client'
 
 import App from "./component/App/App";
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+console.log("----------", document.getElementById('SlmRootContainer'))
+
+ReactDOM.createRoot(document.getElementById('SlmRootContainer')!).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,

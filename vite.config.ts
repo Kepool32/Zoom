@@ -5,5 +5,15 @@ export default defineConfig({
   plugins: [],
   define: {
     'process.env': dotenv.config().parsed
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: 'plugin.js',
+        assetFileNames: 'plugin.css',
+        chunkFileNames: "chunk.js",
+        manualChunks: undefined,
+      }
+    }
   }
 });

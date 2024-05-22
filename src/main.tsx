@@ -43,7 +43,14 @@ console.log("----------", document.getElementById('SlmRootContainer'))
         // Инициализация MutationObserver
         const observer = new MutationObserver(handleMutations);
         observer.observe(document.body, { childList: true, subtree: true });
+        //@ts-ignore
+        window.addEventListener('SlmRootEvent', async (event) => {
 
+            console.log('Кастомное событие поймано!');
+            await unmountComponent()
+            mountComponent(document.getElementById('SlmRootContainer'))
+
+        });
 
         const mountComponent = (node:any) => {
         //@ts-ignore
@@ -56,7 +63,7 @@ console.log("----------", document.getElementById('SlmRootContainer'))
 
     };
 
-    const unmountComponent = () => {
+    const unmountComponent = async () => {
         //@ts-ignore
             window.ZoomReactApp.unmount()
            /* rootRef.current.unmount();

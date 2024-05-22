@@ -78,6 +78,8 @@ define(['jquery'], function($) {
 				});
 			});
 		}
+		const message=new CustomEvent('SlmRootEvent')
+
 		this.callbacks = {
 			render: async function() {
 				$this.script_url = $this.params.script_url;
@@ -91,7 +93,12 @@ define(['jquery'], function($) {
 							render: `<div id="SlmRootContainer"></div>`
 						}, {});
 
-					return true;
+				if (AMOCRM.data.is_card ){
+					console.log("working")
+					window.dispatchEvent(message);
+				}
+
+				return true;
 
 			},
 

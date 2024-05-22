@@ -64,8 +64,14 @@ console.log("----------", document.getElementById('SlmRootContainer'))
     };
 
     const unmountComponent = async () => {
-        //@ts-ignore
+
+        try {
+            //@ts-ignore
             window.ZoomReactApp.unmount()
+        }catch (e:any){
+            console.log(e)
+        }
+
            /* rootRef.current.unmount();
             rootRef.current = null;*/
 

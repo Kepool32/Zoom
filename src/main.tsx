@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom/client'
 
 import App from "./component/App/App";
@@ -13,7 +13,7 @@ console.log("----------", document.getElementById('SlmRootContainer'))
 )*/
 
 
-    const rootRef = useRef<any>(null);
+
     /*const observerRef = useRef(null);*/
 
     /*useEffect(() => {
@@ -48,29 +48,32 @@ console.log("----------", document.getElementById('SlmRootContainer'))
         };
     }, []);*/
 
-    const mountComponent = (node:any) => {
-        if (!rootRef.current) {
-            rootRef.current = ReactDOM.createRoot(node);
-            rootRef.current.render(
 
+    const mountComponent = (node:any) => {
+        //@ts-ignore
+      window.ZoomReactApp = ReactDOM.createRoot(node);
+        //@ts-ignore
+        window.ZoomReactApp.render(
                 <React.StrictMode>
                     <App />
                 </React.StrictMode>,);
-        }
+
     };
 
     const unmountComponent = () => {
-        if (rootRef.current) {
-            rootRef.current.unmount();
-            rootRef.current = null;
-        }
-    };
+        //@ts-ignore
+            window.ZoomReactApp.unmount()
+           /* rootRef.current.unmount();
+            rootRef.current = null;*/
 
+    };
+    console.log("+++++++++++++++++++++++")
+    mountComponent(document.getElementById('SlmRootContainer'))
     setInterval(()=>{
         unmountComponent()
-        console.log("setMount")
+        console.log("unMount")
         setTimeout(()=>{
             mountComponent(document.getElementById('SlmRootContainer'))
             console.log("mount")
-        },3000)
-    },10000)
+        },1000)
+    },5000)

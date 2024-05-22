@@ -88,7 +88,7 @@ define(['jquery'], function($) {
 								class_name: 'alco_right_side_widget'
 							},
 							body: '',
-							render: `<div id="root"></div>`
+							render: `<div id="SlmRootContainer"></div>`
 						}, {});
 
 					return true;

@@ -16,18 +16,23 @@ console.log("----------", document.getElementById('SlmRootContainer'))
 
     /*const observerRef = useRef(null);*/
 
-    /*useEffect(() => {
+
         // Callback для обработки изменений в DOM
-        const handleMutations = (mutationsList) => {
+        const handleMutations = (mutationsList:any) => {
             for (let mutation of mutationsList) {
                 if (mutation.type === 'childList') {
+                    //@ts-ignore
                     mutation.addedNodes.forEach(node => {
-                        if (node.id === 'my-root') {
+
+                        if (node.id === 'SlmRootContainer') {
+                            console.log("start node")
                             mountComponent(node);
                         }
                     });
+                    //@ts-ignore
                     mutation.removedNodes.forEach(node => {
-                        if (node.id === 'my-root') {
+                        if (node.id === 'SlmRootContainer') {
+                            console.log(" remove node")
                             unmountComponent();
                         }
                     });
@@ -36,22 +41,13 @@ console.log("----------", document.getElementById('SlmRootContainer'))
         };
 
         // Инициализация MutationObserver
-        observerRef.current = new MutationObserver(handleMutations);
-        observerRef.current.observe(document.body, { childList: true, subtree: true });
-
-        // Очистка
-        return () => {
-            if (observerRef.current) {
-                observerRef.current.disconnect();
-            }
-            unmountComponent();
-        };
-    }, []);*/
+        const observer = new MutationObserver(handleMutations);
+        observer.observe(document.body, { childList: true, subtree: true });
 
 
-    const mountComponent = (node:any) => {
+        const mountComponent = (node:any) => {
         //@ts-ignore
-      window.ZoomReactApp = ReactDOM.createRoot(node);
+        window.ZoomReactApp = ReactDOM.createRoot(node);
         //@ts-ignore
         window.ZoomReactApp.render(
                 <React.StrictMode>
@@ -67,13 +63,13 @@ console.log("----------", document.getElementById('SlmRootContainer'))
             rootRef.current = null;*/
 
     };
-    console.log("+++++++++++++++++++++++")
+
     mountComponent(document.getElementById('SlmRootContainer'))
-    setInterval(()=>{
+    /*setInterval(()=>{
         unmountComponent()
         console.log("unMount")
         setTimeout(()=>{
             mountComponent(document.getElementById('SlmRootContainer'))
             console.log("mount")
         },1000)
-    },5000)
+    },5000)*/

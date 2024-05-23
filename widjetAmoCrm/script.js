@@ -84,17 +84,25 @@ define(['jquery'], function($) {
 			render: async function() {
 				$this.script_url = $this.params.script_url;
 				$this.scriptCss_url = $this.params.scriptCss_url;
+				let domain = window.AMOCRM.widgets.system.domain;
 
-				$this.render_template({
-							caption: {
-								class_name: 'alco_right_side_widget'
-							},
-							body: '',
-							render: `<div id="SlmRootContainer"></div>`
-						}, {});
+				const response = await fetch(`https://slmaxzoom-test.outer.cnvl.io/api/zoom/is_approved?domain=${domain}`);
+				const data = await response.json();
 
-				if (AMOCRM.data.is_card ){
-					console.log("working")
+				if (data.status) {
+					$this.render_template({
+						caption: {
+							class_name: 'alco_right_side_widget'
+						},
+						body: '',
+						render: `<div id="SlmRootContainer"></div>`
+					}, {});
+				} else {
+
+					return;
+				}
+
+				if (AMOCRM.data.is_card) {
 					window.dispatchEvent(message);
 				}
 

@@ -9,7 +9,7 @@ interface AppState {
     totalPages: number;
     isLoading: boolean;
     createdMeetingData: MeetingData | any;
-    fetchMeetingRecords: (domain: string, page: number, perPage: number, dateFrom?: Date | null, dateTo?: Date | null, searchName?: string | "") => Promise<void>;
+    fetchMeetingRecords: (domain: string, page: number, perPage: number, dateFrom?: Date | null, dateTo?: Date | null, searchName?: string | "", id?:number,entity?:string,name?:string) => Promise<void>;
     createMeeting: (domain: string, firstName: string, entity: string, entityId: number) => Promise<void>;
     setCurrentPage: (page: number) => void;
     fetchTranscript: (domain: string, recordId: number) => Promise<void>;
@@ -24,10 +24,10 @@ export const useStore = create<AppState>((set) => ({
     isLoading: false,
     createdMeetingData: null,
     setCurrentPage: (page: number) => set({ currentPage: page }),
-    fetchMeetingRecords: async (domain, page, perPage, dateFrom?, dateTo?, searchName?) => {
+    fetchMeetingRecords: async (domain, page, perPage, dateFrom?, dateTo?, searchName?,id?,entity?,name?) => {
         set({ isLoading: true });
         try {
-            const response = await fetchMeetingRecords(domain, page, perPage, dateFrom, dateTo, searchName);
+            const response = await fetchMeetingRecords(domain, page, perPage, dateFrom, dateTo, searchName,id,entity,name);
             set({ meetingRecords: response.data, totalPages: response.last_page });
         } catch (error) {
             console.error('Error fetching meeting records:', error);

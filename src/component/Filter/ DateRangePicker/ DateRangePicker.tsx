@@ -5,6 +5,7 @@ import ru from 'date-fns/locale/ru';
 import styles from './DateRangePicker.module.scss';
 import { useStore } from "../../store/index";
 import {DateRangePickerProps, PeriodLabels} from "../interface/DataRangePicker";
+import {WindowWithAMOCRM} from "../../Modal/interface/WindowWithAMOCRM";
 
 
 const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSelect }) => {
@@ -17,8 +18,13 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSelect }) => {
     const [endDate, setEndDate] = useState<Date | null>(null);
     const [isSelectingRange, setIsSelectingRange] = useState<boolean>(false);
     const [isDatePickerOpen, setIsDatePickerOpen] = useState<boolean>(false);
+    const windowWithAMOCRM = window as WindowWithAMOCRM;
     const domain = (window as any)?.AMOCRM?.widgets?.system?.domain || "edormash.amocrm.ru";
-    const perPage = 2;
+    const id = windowWithAMOCRM.AMOCRM?.data?.current_card?.id || 0;
+    const entity = windowWithAMOCRM.AMOCRM?.data?.current_entity || "Entity";
+    const name = windowWithAMOCRM.AMOCRM?.data?.current_card?.user?.name || "Entity";
+
+    const perPage = 3;
 
 
     const periodLabels: PeriodLabels = {
@@ -59,7 +65,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSelect }) => {
         setIsDatePickerOpen(false);
         if (endDate || startDate) {
             onSelect && onSelect(startDate, endDate);
-            fetchMeetingRecords(domain, currentPage, perPage,startDate, endDate);
+            fetchMeetingRecords(domain, currentPage, perPage,startDate, endDate,'',id,entity,name);
         }
     };
 

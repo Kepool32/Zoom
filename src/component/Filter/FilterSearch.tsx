@@ -6,6 +6,7 @@ import DateRangePicker from "./ DateRangePicker/ DateRangePicker";
 import {useStore} from "../store/index";
 import SearchIcon from '../../assets/searchName.svg';
 import debounce from 'lodash.debounce';
+import {WindowWithAMOCRM} from "../Modal/interface/WindowWithAMOCRM";
 
 const FilterSearch: React.FC = memo(() => {
     const {
@@ -16,12 +17,17 @@ const FilterSearch: React.FC = memo(() => {
     const [showModal, setShowModal] = useState(false);
     const [showDataPicker, setShowDataPicker] = useState(false);
     const [selectedPeriod, setSelectedPeriod] = useState<{ startDate: Date | null, endDate: Date | null }>({ startDate: null, endDate: null });
+    const windowWithAMOCRM = window as WindowWithAMOCRM;
     const domain = (window as any)?.AMOCRM?.widgets?.system?.domain || "edormash.amocrm.ru";
+    const id = windowWithAMOCRM.AMOCRM?.data?.current_card?.id || 0;
+    const entity = windowWithAMOCRM.AMOCRM?.data?.current_entity || "Entity";
+    const name = windowWithAMOCRM.AMOCRM?.data?.current_card?.user?.name || "Entity";
+
     const perPage = 3;
 
     const debouncedFetch = useCallback(
         debounce((searchName: string | undefined, dateFrom: Date | null, dateTo: Date | null) => {
-            fetchMeetingRecords(domain, currentPage, perPage, dateFrom, dateTo, searchName);
+            fetchMeetingRecords(domain, currentPage, perPage, dateFrom, dateTo, searchName,id,entity,name);
         }, 500),
         [fetchMeetingRecords, domain, currentPage, perPage]
     );
@@ -53,7 +59,7 @@ const FilterSearch: React.FC = memo(() => {
     const handleResetFilter = () => {
         setSelectedPeriod({ startDate: null, endDate: null })
         setSearchName('');
-        fetchMeetingRecords(domain, currentPage, perPage);
+        fetchMeetingRecords(domain, currentPage, perPage,null,null,"",id,entity,name);
 
     };
 

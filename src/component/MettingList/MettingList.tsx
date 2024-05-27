@@ -4,6 +4,7 @@ import Loader from "../Loader/Loader";
 import Pagination from "../pagination/Pagination";
 import styles from "./MettingList.module.scss";
 import MeetingItems from "./MettingItem/MettingItem";
+import {WindowWithAMOCRM} from "../Modal/interface/WindowWithAMOCRM";
 
 const MeetingList: React.FC = () => {
     const {
@@ -17,11 +18,15 @@ const MeetingList: React.FC = () => {
     } = useStore();
     const [contextMenuId, setContextMenuId] = useState<number | null>(null);
     const [isContextMenuVisible, setContextMenuVisible] = useState<boolean>(false);
+    const windowWithAMOCRM = window as WindowWithAMOCRM;
     const domain = (window as any)?.AMOCRM?.widgets?.system?.domain || "edormash.amocrm.ru";
+    const id = windowWithAMOCRM.AMOCRM?.data?.current_card?.id || 0;
+    const entity = windowWithAMOCRM.AMOCRM?.data?.current_entity || "Entity";
+    const name = windowWithAMOCRM.AMOCRM?.data?.current_card?.user?.name || "Entity";
     const perPage = 3;
 
     useEffect(() => {
-        fetchMeetingRecords(domain, currentPage, perPage);
+        fetchMeetingRecords(domain, currentPage, perPage,null,null,"",id,entity,name);
     }, [fetchMeetingRecords, domain, currentPage, perPage]);
 
     const formatDateString = (dateString: string) => {

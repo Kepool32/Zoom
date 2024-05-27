@@ -12,7 +12,7 @@ define(['jquery'], function($) {
 			return new Promise(function(resolve, reject) {
 				let domain = window.AMOCRM.widgets.system.domain;
 				$.ajax({
-					url: "https://slmaxzoom.outer.cnvl.io/api/zoom/init",
+					url: "https://slmaxzoom-test.outer.cnvl.io/api/zoom/init",
 					method: "POST",
 					data: { domain: domain },
 
@@ -31,7 +31,7 @@ define(['jquery'], function($) {
 			return new Promise(function(resolve, reject) {
 				let domain = window.AMOCRM.widgets.system.domain;
 				$.ajax({
-					url: "https://slmaxzoom.outer.cnvl.io/api/zoom/accounts/add",
+					url: "https://slmaxzoom-test.outer.cnvl.io/api/zoom/accounts/add",
 					method: "POST",
 					data: { domain: domain },
 					success: function(response) {
@@ -49,7 +49,7 @@ define(['jquery'], function($) {
 			return new Promise(function(resolve, reject) {
 				let domain = window.AMOCRM.widgets.system.domain;
 				$.ajax({
-					url: "https://slmaxzoom.outer.cnvl.io/api/zoom/accounts",
+					url: "https://slmaxzoom-test.outer.cnvl.io/api/zoom/accounts",
 					method: "POST",
 					data: { domain: domain },
 					success: function(response) {
@@ -117,7 +117,7 @@ define(['jquery'], function($) {
 
 				});
 
-					$("head").append(`
+				$("head").append(`
                    
                    <link rel="stylesheet" href='${$this.scriptCss_url}'>
                 `);
@@ -153,7 +153,7 @@ define(['jquery'], function($) {
 				selected: function(){}
 			},
 
-			advancedSettings: function() {
+			advancedSettings:  function() {
 				var $work_area = $("#work-area-" + $this.get_settings().widget_code);
 				var usersVisible = false;
 				var deleteUserButton;
@@ -185,13 +185,18 @@ define(['jquery'], function($) {
 
 				var buttonsData = [
 					{
+
 						name: "Подтвердить домен",
 						description: "Убедитесь, что ваш домен подтвержден для безопасной отправки сообщений.",
 						buttonClass: "button1",
 						clickHandler: function() {
+							const $buttonDiv = $(this).parent();
+
+							$buttonDiv.find("h1").text("Домен подтвержден");
+							$buttonDiv.find("p").text("Ваш домен подтвержден для безопасной отправки сообщений.");
+							$buttonDiv.find(".button1").css("display", "none");
+
 							sendRequest();
-							var $confirmationMessage = showConfirmationMessage("Домен подтвержден", "Ваш домен подтвержден для безопасной отправки сообщений.");
-							$(this).text("Домен подтвержден").prop("disabled", true).after($confirmationMessage);
 						}
 					},
 					{
@@ -223,6 +228,30 @@ define(['jquery'], function($) {
 						}
 					}
 				];
+				async function checkDomainApproval() {
+					let domain = window.AMOCRM.widgets.system.domain;
+
+					try {
+						const response = await fetch(`https://slmaxzoom-test.outer.cnvl.io/api/zoom/is_approved?domain=${domain}`);
+						const data = await response.json();
+
+						if (data.status) {
+
+							const $buttonDiv = $work_area.find(".button1").parent();
+							$buttonDiv.find("h1").text("Домен подтвержден");
+							$buttonDiv.find("p").text("Ваш домен подтвержден для безопасной отправки сообщений.");
+							$buttonDiv.find(".button1").css("display", "none");
+
+
+							buttonsData[0].name = "Домен подтвержден";
+							buttonsData[0].description = "Ваш домен подтвержден для безопасной отправки сообщений.";
+							buttonsData[0].clickHandler = function() {};
+						}
+					} catch (error) {
+						console.error("Ошибка при проверке подтверждения домена:", error);
+					}
+				}
+				checkDomainApproval()
 
 				buttonsData.forEach(function(buttonInfo) {
 					var $buttonDiv = $("<div>").css({
